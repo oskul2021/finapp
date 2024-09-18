@@ -7,4 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class FinappApiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FinappApiApplication.class, args
+        SpringApplication.run(FinappApiApplication.class, args);
+    }
+
+}

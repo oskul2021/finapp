@@ -8,3 +8,6 @@ class FinappApiApplicationTests {
 
     @Test
     void contextLoads() {
+    }
+
+}
