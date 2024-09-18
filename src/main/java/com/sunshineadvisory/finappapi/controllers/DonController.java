@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,8 +43,16 @@ public class DonController {
     }
 
     @PutMapping("/{id}")
-    public Map<String, Object> mettreAJourDon(@PathVariable Long id, @RequestBody Don don) {
-        don.setId(id);
+    public Map<String, Object> mettreAJourDon(@PathVariable Long id, @RequestBody Map<String,String> body) {
+        Map<String, Object> response = new HashMap<>();
+        Utilisateur donateur = utilisateurRepository.getReferenceById(Long.valueOf(body.get("donateur")));
+        Don don = donService.obtenirDonParId(id);
+        Double montantCollecte = don.getMontantCollecte();
+        if(montantCollecte >= don.getMontant()){
+            don.setStatut(Don.Statut.TERMINE);
+        }
+        don.setDonateur(donateur);
+        don.setMontantCollecte(montantCollecte+Double.valueOf(body.get("montant")));
         return donService.mettreAJourDon(don);
     }
 }

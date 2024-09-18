@@ -1,5 +1,6 @@
 package com.sunshineadvisory.finappapi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -11,9 +12,11 @@ public class Don {
     private Long id;
 
     @ManyToOne(optional = true)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Utilisateur donateur;
 
     @ManyToOne(optional = true)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Utilisateur beneficiaire;
 
     private Double montant;
@@ -89,9 +92,6 @@ public class Don {
     }
 
     public void setMontantCollecte(Double montantCollecte) {
-        if (this.montantCollecte >= this.montant){
-            this.setStatut(Statut.TERMINE);
-        }
         this.montantCollecte = montantCollecte;
     }
 }

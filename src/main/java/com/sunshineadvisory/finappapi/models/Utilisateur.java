@@ -1,5 +1,6 @@
 package com.sunshineadvisory.finappapi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,7 +17,9 @@ public class Utilisateur implements UserDetails {
 
     private String nom;
     private String email;
+    @JsonIgnore
     private String motDePasse;
+    @JsonIgnore
     private Double solde = 0.0;
 
     @Enumerated(EnumType.STRING)
@@ -63,16 +66,19 @@ public class Utilisateur implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + this.role.name()));
     }
 
     @Override
+    @JsonIgnore
     public String getPassword() {
         return this.motDePasse;
     }
 
     @Override
+    @JsonIgnore
     public String getUsername() {
         return this.email;
     }

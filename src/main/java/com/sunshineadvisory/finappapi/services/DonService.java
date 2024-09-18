@@ -32,8 +32,9 @@ public class DonService {
 
     public Map<String, Object> mettreAJourDon(Don don) {
         Map<String, Object> response = new HashMap<>();
-        response.put("message","Ce don est terminé");
-        if(don.getStatut().equals("TERMINE")){
+
+        if(don.getStatut().equals(Don.Statut.TERMINE)){
+            response.put("message","Ce don est terminé");
             return response;
         }
         donRepository.save(don);
